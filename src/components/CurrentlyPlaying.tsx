@@ -44,8 +44,8 @@ export function CurrentlyPlaying() {
 				<img
 					src={item.album.images[0].url}
 					alt={item.album.name}
-					width={120}
-					height={120}
+					width={360}
+					height={360}
 				/>
 			)}
 			<h3>{item.name}</h3>
@@ -61,7 +61,7 @@ export function CurrentlyPlaying() {
 			>
 				<div
 					style={{
-						background: "#1db954",
+						background: "#08916f",
 						width: `${percent}%`,
 						height: "100%",
 						borderRadius: 4,

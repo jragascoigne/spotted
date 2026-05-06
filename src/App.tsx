@@ -1,6 +1,7 @@
 import { Profile } from "./components/Profile";
 import { CurrentlyPlaying } from "./components/CurrentlyPlaying";
 import { useEffect } from "react";
+import { SessionDisplay } from "./components/SessionDisplay";
 
 export default function App() {
 	useEffect(() => {
@@ -25,6 +26,8 @@ export default function App() {
 			<Profile />
 			<hr />
 			<CurrentlyPlaying />
+			<hr />
+			<SessionDisplay />
 		</div>
 	);
 }
