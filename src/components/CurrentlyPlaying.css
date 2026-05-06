@@ -1,22 +1,31 @@
 .currently-playing {
+	padding: 16px;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 }
 
 .currently-playing__label {
+	margin: 8px;
 }
 
 .currently-playing__artwork {
+	margin: 8px;
 }
 
 .currently-playing__track-name {
+	text-align: center;
+	font-size: 32px;
+	font-weight: 900;
+	margin: 4px;
 }
 
 .currently-playing__artists {
+	margin: 8px;
 }
 
 .currently-playing__album-name {
+	margin: 8px;
 }
 
 .currently-playing__progress-bar {
@@ -27,10 +36,11 @@
 }
 
 .currently-playing__progress-fill {
-	background: #08916f;
+	background: var(--style-color);
 	height: 100%;
 	border-radius: 4px;
 }
 
 .currently-playing__timestamp {
+	margin: 8px;
 }

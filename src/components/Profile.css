@@ -1,4 +1,14 @@
 .profile {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	gap: 1rem;
+	padding: 16px;
+}
+
+.profile__info {
+	display: flex;
+	flex-direction: column;
 }
 
 .profile__avatar {
@@ -6,7 +16,9 @@
 }
 
 .profile__display-name {
+	margin: 4px;
 }
 
 .profile__followers {
+	margin: 4px;
 }

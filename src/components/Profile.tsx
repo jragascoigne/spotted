@@ -30,10 +30,12 @@ export function Profile() {
 					height={80}
 				/>
 			)}
-			<h2 className="profile__display-name">{user.display_name}</h2>
-			<p className="profile__followers">
-				{user.followers.total} followers
-			</p>
+			<div className="profile__info">
+				<h2 className="profile__display-name">{user.display_name}</h2>
+				<p className="profile__followers">
+					{user.followers.total} followers
+				</p>
+			</div>
 		</div>
 	);
 }

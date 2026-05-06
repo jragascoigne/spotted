@@ -40,7 +40,6 @@ export function CurrentlyPlaying() {
 
 	return (
 		<div className="currently-playing">
-			<p className="currently-playing__label">Now playing</p>
 			{item.album.images[0] && (
 				<img
 					className="currently-playing__artwork"
