@@ -1,0 +1,36 @@
+.currently-playing {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.currently-playing__label {
+}
+
+.currently-playing__artwork {
+}
+
+.currently-playing__track-name {
+}
+
+.currently-playing__artists {
+}
+
+.currently-playing__album-name {
+}
+
+.currently-playing__progress-bar {
+	background: #eee;
+	border-radius: 4px;
+	height: 6px;
+	width: 100%;
+}
+
+.currently-playing__progress-fill {
+	background: #08916f;
+	height: 100%;
+	border-radius: 4px;
+}
+
+.currently-playing__timestamp {
+}

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useSpotify } from "../context/SpotifyContext";
 import type { SpotifyUser } from "../lib/spotify.types";
+import "./Profile.css";
 
 export function Profile() {
 	const { client } = useSpotify();
@@ -19,18 +20,20 @@ export function Profile() {
 	if (!user) return <p>Could not load profile.</p>;
 
 	return (
-		<div>
+		<div className="profile">
 			{user.images[0] && (
 				<img
+					className="profile__avatar"
 					src={user.images[0].url}
 					alt={user.display_name}
 					width={80}
 					height={80}
-					style={{ borderRadius: "50%" }}
 				/>
 			)}
-			<h2>{user.display_name}</h2>
-			<p>{user.followers.total} followers</p>
+			<h2 className="profile__display-name">{user.display_name}</h2>
+			<p className="profile__followers">
+				{user.followers.total} followers
+			</p>
 		</div>
 	);
 }

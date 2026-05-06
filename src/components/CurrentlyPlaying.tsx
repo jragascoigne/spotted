@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useSpotify } from "../context/SpotifyContext";
 import type { CurrentlyPlaying } from "../lib/spotify.types";
+import "./CurrentlyPlaying.css";
 
 export function CurrentlyPlaying() {
 	const { client } = useSpotify();
@@ -38,37 +39,29 @@ export function CurrentlyPlaying() {
 	};
 
 	return (
-		<div>
-			<p>Now playing</p>
+		<div className="currently-playing">
+			<p className="currently-playing__label">Now playing</p>
 			{item.album.images[0] && (
 				<img
+					className="currently-playing__artwork"
 					src={item.album.images[0].url}
 					alt={item.album.name}
 					width={360}
 					height={360}
 				/>
 			)}
-			<h3>{item.name}</h3>
-			<p>{item.artists.map((a) => a.name).join(", ")}</p>
-			<p>{item.album.name}</p>
-			<div
-				style={{
-					background: "#eee",
-					borderRadius: 4,
-					height: 6,
-					width: "100%",
-				}}
-			>
+			<h3 className="currently-playing__track-name">{item.name}</h3>
+			<p className="currently-playing__artists">
+				{item.artists.map((a) => a.name).join(", ")}
+			</p>
+			<p className="currently-playing__album-name">{item.album.name}</p>
+			<div className="currently-playing__progress-bar">
 				<div
-					style={{
-						background: "#08916f",
-						width: `${percent}%`,
-						height: "100%",
-						borderRadius: 4,
-					}}
+					className="currently-playing__progress-fill"
+					style={{ width: `${percent}%` }}
 				/>
 			</div>
-			<p>
+			<p className="currently-playing__timestamp">
 				{fmt(progress)} / {fmt(duration)}
 			</p>
 		</div>
