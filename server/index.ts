@@ -2,7 +2,7 @@ import express from "express";
 import cors from "cors";
 
 const app = express();
-app.use(cors({ origin: "http://127.0.0.1:3000" }));
+app.use(cors({ origin: "http://127.0.0.1:5173" }));
 app.use(express.json());
 
 const CLIENT_ID = "3edf5d9cea0a44058eb0493aaaadfe30";
@@ -32,5 +32,5 @@ app.post("/refresh", async (req, res) => {
 });
 
 app.listen(3001, "127.0.0.1", () => {
-	console.log("Auth server running on http://127.0.0.1:3001");
+	console.log("Auth server running on http://127.0.0.1:5173");
 });

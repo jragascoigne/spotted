@@ -18,7 +18,7 @@ export function SessionDisplay() {
 			<ul>
 				{stats.topArtists.map((a) => (
 					<li key={a.name}>
-						{a.name} — {a.count} {a.count === 1 ? "play" : "plays"}
+						{a.name} - {a.count} {a.count === 1 ? "play" : "plays"}
 					</li>
 				))}
 			</ul>
@@ -27,7 +27,7 @@ export function SessionDisplay() {
 			<ul>
 				{stats.topTracks.map((t) => (
 					<li key={t.name}>
-						{t.name} — {t.artist} — {t.count}{" "}
+						{t.name} - {t.artist} - {t.count}{" "}
 						{t.count === 1 ? "play" : "plays"}
 					</li>
 				))}
@@ -37,7 +37,7 @@ export function SessionDisplay() {
 			<ul>
 				{stats.topGenres.map((g) => (
 					<li key={g.genre}>
-						{g.genre} — {g.count} {g.count === 1 ? "play" : "plays"}
+						{g.genre} - {g.count} {g.count === 1 ? "play" : "plays"}
 					</li>
 				))}
 			</ul>
@@ -46,7 +46,7 @@ export function SessionDisplay() {
 			<ul>
 				{[...stats.timeline].reverse().map((t, i) => (
 					<li key={i}>
-						{time(t.startedAt)} — {t.track} by {t.artist}
+						{time(t.startedAt)} - {t.track} by {t.artist}
 					</li>
 				))}
 			</ul>

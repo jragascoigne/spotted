@@ -110,14 +110,14 @@ export class SessionTracker {
 		save(this.session);
 	}
 
-	clear() {
+	clear = () => {
 		const fresh = newSession();
 		this.session = fresh;
 		this.currentTrackId = null;
 		this.currentTrackStart = null;
 		this.committed = new Set();
 		save(this.session);
-	}
+	};
 
 	update(data: CurrentlyPlaying | null, genres: Map<string, string[]>) {
 		if (!data?.is_playing || !data.item) return;
