@@ -51,5 +51,11 @@ export interface SearchResults {
 	playlists?: PaginatedResponse<SpotifyPlaylist>;
 }
 
+export interface CurrentlyPlaying {
+	is_playing: boolean;
+	item: SpotifyTrack | null;
+	progress_ms: number | null;
+}
+
 export type TimeRange = "short_term" | "medium_term" | "long_term";
 export type SearchType = "track" | "artist" | "album" | "playlist";

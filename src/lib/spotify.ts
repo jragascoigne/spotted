@@ -6,6 +6,7 @@ import type {
 	SearchResults,
 	TimeRange,
 	SearchType,
+	CurrentlyPlaying,
 } from "./spotify.types";
 
 const BASE_URL = "https://api.spotify.com/v1";
@@ -52,4 +53,7 @@ export class SpotifyClient {
 		this.fetch<SearchResults>(
 			`/search?q=${encodeURIComponent(query)}&type=${types.join(",")}&limit=${limit}`,
 		);
+
+	getCurrentlyPlaying = () =>
+		this.fetch<CurrentlyPlaying | null>("/me/player/currently-playing");
 }

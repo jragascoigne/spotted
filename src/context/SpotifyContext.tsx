@@ -84,3 +84,5 @@ export function useSpotifyContext() {
 		);
 	return ctx;
 }
+
+export const useSpotify = useSpotifyContext;

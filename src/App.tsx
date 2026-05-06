@@ -1,34 +1,30 @@
-import { useSpotifyQuery } from "./hooks/useSpotify";
+import { Profile } from "./components/Profile";
+import { CurrentlyPlaying } from "./components/CurrentlyPlaying";
+import { useEffect } from "react";
 
-export function TopTracks() {
-	const { data, loading, error } = useSpotifyQuery(
-		"getTopTracks",
-		"short_term",
-		10,
-	);
-	const tracks =
-		(data && typeof data === "object" && "items" in data
-			? (
-					data as {
-						items?: {
-							id: string;
-							name: string;
-							artists: { name: string }[];
-						}[];
-					}
-				).items
-			: []) ?? [];
-
-	if (loading) return <p>Loading...</p>;
-	if (error) return <p>Error: {error.message}</p>;
+export default function App() {
+	useEffect(() => {
+		fetch("https://api.spotify.com/v1/me", {
+			headers: {
+				Authorization: `Bearer ${import.meta.env.VITE_SPOTIFY_TOKEN}`,
+			},
+		})
+			.then((r) => r.json())
+			.then(console.log)
+			.catch(console.error);
+	}, []);
 
 	return (
-		<ul>
-			{tracks.map((track) => (
-				<li key={track.id}>
-					{track.name} — {track.artists[0].name}
-				</li>
-			))}
-		</ul>
+		<div
+			style={{
+				maxWidth: 600,
+				margin: "40px auto",
+				fontFamily: "sans-serif",
+			}}
+		>
+			<Profile />
+			<hr />
+			<CurrentlyPlaying />
+		</div>
 	);
 }
