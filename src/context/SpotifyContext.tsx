@@ -10,6 +10,32 @@ interface SpotifyContextValue {
 
 const SpotifyContext = createContext<SpotifyContextValue | null>(null);
 
+async function refreshAccessToken(): Promise<string | null> {
+	const refreshToken =
+		localStorage.getItem("spotify_refresh_token") ??
+		import.meta.env.VITE_SPOTIFY_REFRESH_TOKEN;
+
+	if (!refreshToken) return null;
+
+	const res = await fetch("http://127.0.0.1:3001/refresh", {
+		method: "POST",
+		headers: { "Content-Type": "application/json" },
+		body: JSON.stringify({ refresh_token: refreshToken }),
+	});
+
+	const data = await res.json();
+	if (data.access_token) {
+		localStorage.setItem("spotify_token", data.access_token);
+		// Store new refresh token if Spotify rotated it
+		if (data.refresh_token) {
+			localStorage.setItem("spotify_refresh_token", data.refresh_token);
+		}
+		return data.access_token;
+	}
+
+	return null;
+}
+
 export function SpotifyProvider({ children }: { children: ReactNode }) {
 	const [token, setTokenState] = useState<string>(
 		() =>
@@ -17,7 +43,7 @@ export function SpotifyProvider({ children }: { children: ReactNode }) {
 			import.meta.env.VITE_SPOTIFY_TOKEN ??
 			"",
 	);
-	const [tokenExpired, setTokenExpired] = useState(false);
+	const [tokenExpired, setTokenExpired] = useState(!token);
 
 	const setToken = (t: string) => {
 		localStorage.setItem("spotify_token", t);
@@ -25,7 +51,6 @@ export function SpotifyProvider({ children }: { children: ReactNode }) {
 		setTokenState(t);
 	};
 
-	// Patch the client to catch expiry globally
 	const client = token
 		? new Proxy(new SpotifyClient(token), {
 				get(target, prop) {
@@ -39,6 +64,21 @@ export function SpotifyProvider({ children }: { children: ReactNode }) {
 								err instanceof Error &&
 								err.message === "TOKEN_EXPIRED"
 							) {
+								// Try to refresh automatically
+								const newToken = await refreshAccessToken();
+								if (newToken) {
+									setTokenState(newToken);
+									// Retry the original call with new token
+									const newClient = new SpotifyClient(
+										newToken,
+									);
+									const newMethod =
+										newClient[prop as keyof SpotifyClient];
+									return await (newMethod as Function).apply(
+										newClient,
+										args,
+									);
+								}
 								setTokenExpired(true);
 							}
 							throw err;
@@ -53,7 +93,7 @@ export function SpotifyProvider({ children }: { children: ReactNode }) {
 			{tokenExpired ? (
 				<TokenExpiredBanner onUpdate={setToken} />
 			) : (
-				children
+				<div key={token}>{children}</div>
 			)}
 		</SpotifyContext.Provider>
 	);
